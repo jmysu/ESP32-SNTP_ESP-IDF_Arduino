@@ -5,6 +5,7 @@
 static const char *TAG = "main";
 
 extern OLEDDisplayUi ui;
+ 
 extern "C" void initSNTP();
 extern void setupSSD();
 
@@ -34,6 +35,13 @@ void app_main()
 
    while (1) {
         ui.update();
+            
+        if ( ((millis()/1000)>10) && (ui.getUiState()->currentFrame>0) ) { //wakeup for 10 seconds 
+            ui.OLED
+            const int deep_sleep_sec = 30;
+            ESP_LOGW(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
+            esp_deep_sleep(1000000LL * deep_sleep_sec); //Go sleep 60 seconds
+            }
         }
 }
 

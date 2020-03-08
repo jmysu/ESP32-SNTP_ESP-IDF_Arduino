@@ -57,9 +57,6 @@ static void initialize_sntp(void);
 static void initialise_wifi(void);
 static esp_err_t event_handler(void *ctx, system_event_t *event);
 
-int t_year, t_mon, t_date;
-int t_hour, t_min, t_sec;
-
 tcpip_adapter_ip_info_t ipInfo;
 bool bConnected = false;
 
@@ -95,19 +92,13 @@ void initSNTP()
     localtime_r(&now, &timeinfo);
     strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
     ESP_LOGW(TAG, "The current date/time in Taipei is:\t %s", strftime_buf);
-
-    t_hour = timeinfo.tm_hour;
-    t_min  = timeinfo.tm_min;
-    t_sec  = timeinfo.tm_sec;
-    t_year = timeinfo.tm_year+1900;
-    t_mon  = timeinfo.tm_mon+1;
-    t_date = timeinfo.tm_mday;
 /*
-    const int deep_sleep_sec = 30;
-    ESP_LOGI(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
-
-    esp_deep_sleep(1000000LL * deep_sleep_sec);
-*/    
+    if ((millis()/1000)>61) { //wakeup for 60 seconds?
+        const int deep_sleep_sec = 60;
+        ESP_LOGI(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
+        esp_deep_sleep(6000000LL * deep_sleep_sec); //Go sleep 60 seconds
+        }
+*/            
 }
 
 static void obtain_time(void)

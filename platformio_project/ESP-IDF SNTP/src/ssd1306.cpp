@@ -51,6 +51,9 @@
 #include "formosa.h"
 
 #include <tcpip_adapter.h>
+#include <esp_log.h>
+//#include <stdio.h>
+#include <sys/time.h>
 // Use the corresponding display class:
 
 // Initialize the OLED display using SPI
@@ -83,7 +86,7 @@ void msOverlay(OLEDDisplay *display, OLEDDisplayUiState* state) {
   display->setFont(ArialMT_Plain_10);
   int iSec = millis()/1000;
   char buf[64];
-  sprintf(buf, "%02d:%02d:%02d", iSec/(60*60), iSec/60, iSec%60);
+  sprintf(buf, "%02d:%02d:%02d", iSec/(60*60), (iSec/60)%60, iSec%60);
   display->drawString(128, 0, buf);
 }
 
@@ -116,21 +119,26 @@ void drawFrame1(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int1
 */
 }
 
-extern int t_year, t_mon, t_date;
-extern int t_hour, t_min, t_sec;
 void drawFrame2(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
   int iX = Formosa_width/2;
   display->drawXbm(x-16, y , Formosa_width, Formosa_height, Formosa_bits);
 
-  // Demonstrates the 3 included default sizes. The fonts come from SSD1306Fonts.h file
-  // Besides the default fonts there will be a program to convert TrueType fonts into this format
+  time_t t1 = time(NULL);
+  struct tm *nPtr = localtime(&t1);
+  int t_year = nPtr->tm_year + 1900;
+  int t_month= nPtr->tm_mon + 1;
+  int t_mday = nPtr->tm_mday;
+  int t_hour = nPtr->tm_hour;
+  int t_min  = nPtr->tm_min;
+  int t_sec  = nPtr->tm_sec;
+
   display->setTextAlignment(TEXT_ALIGN_LEFT);
   display->setFont(ArialMT_Plain_10);
   display->drawString(iX + x, 10 + y, "Taiwan");
 
   display->setFont(ArialMT_Plain_16);
   char buf[32];
-  sprintf(buf,"%4d-%02d-%02d", t_year, t_mon, t_date);
+  sprintf(buf,"%4d-%02d-%02d", t_year, t_month, t_mday);
   display->drawString(iX + x, 20 + y, buf);
 
   display->setFont(ArialMT_Plain_24);
