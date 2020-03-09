@@ -34,14 +34,12 @@ void app_main()
    initSNTP();
 
    while (1) {
-        ui.update();
-            
         if ( ((millis()/1000)>10) && (ui.getUiState()->currentFrame>0) ) { //wakeup for 10 seconds 
-            ui.OLED
-            const int deep_sleep_sec = 30;
+            const int deep_sleep_sec = 50;
             ESP_LOGW(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
-            esp_deep_sleep(1000000LL * deep_sleep_sec); //Go sleep 60 seconds
+            esp_deep_sleep(1000000LL * deep_sleep_sec); //Go sleep 50 seconds
             }
+        ui.update();
         }
 }
 

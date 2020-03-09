@@ -57,8 +57,7 @@ static void initialize_sntp(void);
 static void initialise_wifi(void);
 static esp_err_t event_handler(void *ctx, system_event_t *event);
 
-tcpip_adapter_ip_info_t ipInfo;
-bool bConnected = false;
+RTC_DATA_ATTR tcpip_adapter_ip_info_t ipInfo; //info for storing ip information
 
 void initSNTP()
 {
@@ -162,7 +161,6 @@ static esp_err_t event_handler(void *ctx, system_event_t *event)
         xEventGroupSetBits(wifi_event_group, CONNECTED_BIT);
 
         ipInfo = event->event_info.got_ip.ip_info;
-        bConnected = true;
         ESP_LOGW(TAG,"Got   IP: %s", ip4addr_ntoa(&ipInfo.ip));
         ESP_LOGW(TAG,"Got   GW: %s", ip4addr_ntoa(&ipInfo.gw));
         ESP_LOGW(TAG,"Got MASK: %s", ip4addr_ntoa(&ipInfo.netmask));

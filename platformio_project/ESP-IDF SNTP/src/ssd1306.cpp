@@ -90,8 +90,7 @@ void msOverlay(OLEDDisplay *display, OLEDDisplayUiState* state) {
   display->drawString(128, 0, buf);
 }
 
-extern tcpip_adapter_ip_info_t ipInfo;
-extern bool bConnected;
+extern RTC_DATA_ATTR tcpip_adapter_ip_info_t ipInfo;
 
 void drawFrame1(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int16_t y) {
   // draw an xbm image.
@@ -99,7 +98,7 @@ void drawFrame1(OLEDDisplay *display, OLEDDisplayUiState* state, int16_t x, int1
   // needs to be drawn relative to x and y
   display->drawXbm(x, y + 14, WiFi_Logo_width, WiFi_Logo_height, WiFi_Logo_bits);
 
-  if (bConnected) {
+  if (&ipInfo != NULL) { //&ipInfo got valid data?
     display->setTextAlignment(TEXT_ALIGN_RIGHT);
     display->setFont(ArialMT_Plain_10);
     display->drawString(x+128, y+25, ip4addr_ntoa(&ipInfo.ip));
@@ -162,7 +161,7 @@ void setupSSD() {
 	// but that won't give you much time for anything else
 	// run it in 160Mhz mode or just set it to 30 fps
   ui.setTargetFPS(10);
-  ui.setTimePerFrame(1000);
+  ui.setTimePerFrame(500);
 
 	// Customize the active and inactive symbol
   ui.setActiveSymbol(activeSymbol);
