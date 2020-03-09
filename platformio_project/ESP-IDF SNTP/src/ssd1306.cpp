@@ -156,7 +156,14 @@ int frameCount = 2;
 OverlayCallback overlays[] = { msOverlay };
 int overlaysCount = 1;
 
-void setupSSD() {
+void dimSSD1306() {
+  // really low brightness & contrast: contrast = 10, precharge = 5, comdetect = 0
+  // normal brightness & contrast:  contrast = 100
+  //display.setContrast(20,64,32);//low brightness
+  display.setContrast(16,32,20);//low brightness
+  }
+
+void setupSSD1306() {
 	// The ESP is capable of rendering 60fps in 80Mhz mode
 	// but that won't give you much time for anything else
 	// run it in 160Mhz mode or just set it to 30 fps
