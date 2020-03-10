@@ -9,6 +9,7 @@ extern OLEDDisplayUi ui;
 extern "C" void initSNTP();
 extern void setupSSD1306();
 extern void dimSSD1306();
+extern "C" void deepsleepWakeUpGPIO0();
 
 void blinkTask(void *pvParameter) {
     //GPIO_NUM_16 is G16 on board
@@ -37,9 +38,10 @@ void app_main()
    while (1) {
         if ( ((millis()/1000)>10) && (ui.getUiState()->currentFrame>0) ) { //wakeup for 10 seconds 
             dimSSD1306();
-            const int deep_sleep_sec = 50;
-            ESP_LOGW(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
-            esp_deep_sleep(1000000LL * deep_sleep_sec); //Go sleep 50 seconds
+            //const int deep_sleep_sec = 50;
+            //ESP_LOGW(TAG, "Entering deep sleep for %d seconds", deep_sleep_sec);
+            //esp_deep_sleep(1000000LL * deep_sleep_sec); //Go sleep 50 seconds
+            deepsleepWakeUpGPIO0();
             }
         ui.update();
         }
