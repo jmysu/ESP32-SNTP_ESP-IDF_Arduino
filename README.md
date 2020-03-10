@@ -10,3 +10,5 @@ Individual tasks for LED blinks and UI display with SNTP time sync! (Dimmable OL
   - [SSD1306 Arduino Library](https://platformio.org/lib/show/562/ESP8266_SSD1306 )<br>
   
   - [ESP-IDF SNTP example](https://github.com/espressif/esp-idf/tree/master/examples/protocols/sntp)<br>
+  
+  - [ESP32 ESP-IDF example, how to go back to sleep from deep sleep wake stub](https://gist.github.com/igrr/54f7fbe0513ac14e1aea3fd7fbecfeab)<br> 
