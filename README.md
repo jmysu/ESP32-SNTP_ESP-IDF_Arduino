@@ -3,7 +3,7 @@
 ESP-IDF project using Arduino OLED library as component (ESP-IDF protocol example modified) <br>
 Individual tasks for LED blinks and UI display with SNTP time sync!<br>
 
-<img src="picture/SNTP_OLED_0309.gif" width="320"/><img src="picture/OledDim.gif" width="320"/> <br> <br>
+<img src="picture/SNTP_OLED_0309.gif" width="320"/><img src="picture/OledDim.gif" width="200"/> <br> <br>
 
 ### References
   - [SSD1306 Arduino Library](https://platformio.org/lib/show/562/ESP8266_SSD1306 )<br>
